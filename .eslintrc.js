@@ -50,6 +50,7 @@ module.exports = {
 
   // add your custom rules here
   rules: {
+    "linebreak-style": 'off',
     
     'no-param-reassign': 'off',
     'no-void': 'off',
