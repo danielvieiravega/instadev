@@ -1,5 +1,7 @@
 # Instadev (instadev)
 
+Course: https://www.udemy.com/course/formacao-programador-frontend-vuejs
+
 A Quasar Project
 
 ## Install the dependencies
