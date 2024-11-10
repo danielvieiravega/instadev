@@ -5,7 +5,7 @@
     <q-img width="30px" src="../../assets/add.svg"></q-img>
     <q-img width="32px" src="../../assets/heart.svg"></q-img>
     <q-avatar size="28px">
-      <img src="https://cdn.quasar.dev/img/avatar.png">
+      <img src="https://cdn.quasar.dev/img/avatar.png" alt="avatar">
     </q-avatar>
   </div>
 </template>
