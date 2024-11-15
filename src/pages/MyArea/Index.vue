@@ -78,14 +78,20 @@
           :ratio="1"
         />
       </div>
+      <div class="container-bottom full-width q-pb-lg">
+        <q-separator class="full-width q-mb-sm" />
+        <BottomBar/>
+      </div>
     </div>
   </q-page>
 </template>
 
 <script>
+import BottomBar from 'components/BottomBar/Index.vue';
+
 export default {
   name: 'MyArea',
-  components: {},
+  components: { BottomBar },
   data() {
     return {
       tab: 'grid',

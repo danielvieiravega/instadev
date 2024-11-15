@@ -47,12 +47,6 @@ export default {
   position: fixed;
   background-color: $background-light;
 }
-.container-bottom {
-  z-index: 6000;
-  background-color: $background-light;
-  position: fixed;
-  bottom: 0;
-}
 .scroll-area {
   height: 98px;
   margin-top: 70px;
