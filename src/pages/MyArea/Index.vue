@@ -1,11 +1,23 @@
 <template>
   <q-page class="flex column">
-    <div class="column q-pt-xl q-px-md full-width">
-      <q-icon name="las la-bars" size="31px" class="absolute-right q-ma-lg" />
+    <MenuDrawer
+      :drawerRight="drawerRight"
+      @close="drawerRight = false"
+    />
+    <div
+      class="column q-pb-md q-pt-xl q-px-md full-width bg-grey-2"
+      :class="drawerRight && 'drawer-open'"
+    >
+      <q-icon
+        name="las la-bars"
+        size="31px"
+        class="absolute-right q-ma-lg cursor-pointer"
+        @click="drawerRight = !drawerRight"
+      />
       <div class="full-width row items-center justify-center">
-        <q-icon name="fas fa-lock" color="black" size="11px" class="q-mr-xs" />
+        <q-icon name="fas fa-lock" color="black" size="11px" class="q-mr-xs"/>
         <strong>jacob_w</strong>
-        <q-icon name="fas fa-chevron-down" color="black" size="11px" class="q-ml-xs" />
+        <q-icon name="fas fa-chevron-down" color="black" size="11px" class="q-ml-xs"/>
       </div>
       <div class="row items-center justify-between full-width q-mt-lg">
         <q-avatar class="avatar-profile" size="96px">
@@ -56,18 +68,21 @@
         </div>
       </div>
     </div>
-    <q-separator class="q-mt-md" />
-    <div class="full-width">
+    <q-separator />
+    <div
+      class="full-width"
+      :class="drawerRight && 'drawer-open'"
+    >
       <q-tabs
         v-model="tab"
         class="text-teal"
         active-color="grey-8"
       >
         <q-tab name="grid">
-          <q-img src="../../../src/assets/grid.svg" width="22px" />
+          <q-img src="../../../src/assets/grid.svg" width="22px"/>
         </q-tab>
         <q-tab name="profile">
-          <q-img src="../../../src/assets/profile.svg" width="22px" />
+          <q-img src="../../../src/assets/profile.svg" width="22px"/>
         </q-tab>
       </q-tabs>
       <div class="row q-mb-xl">
@@ -78,23 +93,31 @@
           :ratio="1"
         />
       </div>
-      <div class="container-bottom full-width q-pb-lg">
-        <q-separator class="full-width q-mb-sm" />
-        <BottomBar/>
-      </div>
+    </div>
+    <div
+      class="full-width q-pb-lg"
+      :class="drawerRight ? 'bottom-menu-drawer-open' : 'container-bottom'"
+    >
+      <q-separator class="full-width q-mb-sm"/>
+      <BottomBar/>
     </div>
   </q-page>
 </template>
 
 <script>
 import BottomBar from 'components/BottomBar/Index.vue';
+import MenuDrawer from 'components/MenuDrawer/Index.vue';
 
 export default {
   name: 'MyArea',
-  components: { BottomBar },
+  components: {
+    MenuDrawer,
+    BottomBar,
+  },
   data() {
     return {
       tab: 'grid',
+      drawerRight: false,
     };
   },
 };
@@ -129,5 +152,20 @@ export default {
   border-radius: 6px;
   text-transform: none;
   border: 1px solid rgba(60, 60, 67, 0.18);
+}
+
+.drawer-open {
+  position: relative;
+  right: 70%;
+}
+
+.menu-drawer {
+  width: 70%;
+}
+
+.bottom-menu-drawer-open {
+  position: absolute;
+  right: 70%;
+  bottom: 0px;
 }
 </style>
