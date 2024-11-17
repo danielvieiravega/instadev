@@ -1,2 +1,3 @@
-export function someGetter(/* state */) {
+export function getJWT(state) {
+  return state.token;
 }

@@ -18,9 +18,8 @@ export async function makeLogin({ commit }, body) {
       ...formattedCredential,
       password,
     });
-    await this.$router.push({ path: 'main' });
-    console.log(JSON.stringify(data));
-    console.log(commit);
+    commit('setToken', data.token);
+    // await this.$router.push({ path: 'main' });
   } catch (e) {
     console.log(e);
   }

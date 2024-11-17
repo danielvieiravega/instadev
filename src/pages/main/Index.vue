@@ -2,7 +2,7 @@
   <q-page class="flex">
     <div class="container-top full-width q-pt-lg">
       <TopBar/>
-      <q-separator class="full-width q-mt-sm" />
+      <q-separator class="full-width q-mt-sm"/>
     </div>
     <q-scroll-area
       horizontal
@@ -22,7 +22,7 @@
     </q-scroll-area>
     <Posts v-for="item in 10" :key="item"/>
     <div class="container-bottom full-width q-pb-lg">
-      <q-separator class="full-width q-mb-sm" />
+      <q-separator class="full-width q-mb-sm"/>
       <BottomBar/>
     </div>
 
@@ -33,10 +33,21 @@
 import TopBar from 'components/TopBar/Index.vue';
 import BottomBar from 'components/BottomBar/Index.vue';
 import Posts from 'components/Posts/Index.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'MainPage',
-  components: { BottomBar, TopBar, Posts },
+  components: {
+    BottomBar,
+    TopBar,
+    Posts,
+  },
+  computed: {
+    ...mapGetters('auth', ['getJWT']),
+  },
+  mounted() {
+    console.log(this.getJWT);
+  },
 };
 </script>
 
@@ -47,16 +58,19 @@ export default {
   position: fixed;
   background-color: $background-light;
 }
+
 .scroll-area {
   height: 98px;
   margin-top: 70px;
 }
+
 .q-avatar {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: linear-gradient(#FBAA47, #D91A46, #A60F93);
   padding: 2px;
+
   .avatar {
     width: 57px;
     height: 57px;
