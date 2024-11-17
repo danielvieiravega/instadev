@@ -68,6 +68,8 @@ export default {
         this.$q.notify({
           color: 'negative',
           message: 'Login failed, check your credentials',
+          position: 'top',
+          icon: 'warning',
         });
       }
     },
