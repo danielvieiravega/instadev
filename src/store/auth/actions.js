@@ -20,7 +20,13 @@ export async function makeLogin({ commit }, body) {
     });
     commit('setToken', data.token);
     return data;
-  } catch (e) {
+  } catch {
+    vm.$q.notify({
+      color: 'negative',
+      message: 'Login failed, check your credentials',
+      position: 'top',
+      icon: 'warning',
+    });
     return false;
   }
 }
