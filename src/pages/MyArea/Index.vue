@@ -21,10 +21,11 @@
       </div>
       <div class="row items-center justify-between full-width q-mt-lg">
         <q-avatar class="avatar-profile" size="96px">
-          <img class="avatar" :src="user.avatar || 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1114445501.jpg' ">
+          <img class="avatar"
+               :src="user.avatar || 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1114445501.jpg' ">
         </q-avatar>
         <div class="column items-center">
-          <strong>{{posts.length}}</strong>
+          <strong>{{ posts.length }}</strong>
           <span>Posts</span>
         </div>
         <div class="column items-center">
@@ -51,7 +52,9 @@
         dense
         color="white"
         text-color="black"
-        label="Edit profile">
+        label="Edit profile"
+        @click="goTo('profile')"
+      >
       </q-btn>
       <div class="row">
         <div class="column items-center q-mr-md">
@@ -134,6 +137,9 @@ export default {
     async loadMyPosts() {
       const response = await this.$store.dispatch('posts/listMyPosts', { token: this.token });
       this.posts = response.data;
+    },
+    goTo(route) {
+      this.$router.push({ path: route });
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="full-width row justify-around">
-    <q-img width="24px" src="../../assets/house.svg"></q-img>
+    <q-img width="24px" src="../../assets/house.svg" @click="goTo('main')"></q-img>
     <q-img width="28px" src="../../assets/search.svg"></q-img>
     <q-img width="30px" src="../../assets/add.svg"></q-img>
     <q-img width="32px" src="../../assets/heart.svg"></q-img>

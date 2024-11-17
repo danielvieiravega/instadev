@@ -7,26 +7,26 @@
     </div>
     <div class="full-width column items-center justify-center">
       <q-avatar size="95px">
-        <img src="https://cdn.quasar.dev/img/avatar.png">
+        <img :src="avatar">
       </q-avatar>
       <q-btn flat color="primary" label="Change Profile Photo"/>
     </div>
     <div class="full-width column q-px-sm">
       <div class="container-input row justify-center items-center">
         <span>Name</span>
-        <q-input v-model="text" placeholder="name"/>
+        <q-input v-model="name" placeholder="name"/>
       </div>
       <div class="container-input row justify-center items-center">
         <span>Username</span>
-        <q-input v-model="text" placeholder="username"/>
+        <q-input v-model="userName" placeholder="username"/>
       </div>
       <div class="container-input row justify-center items-center">
         <span>Website</span>
-        <q-input v-model="text" placeholder="website"/>
+        <q-input v-model="webSite" placeholder="website"/>
       </div>
       <div class="container-input row justify-center items-center">
         <span>Bio</span>
-        <q-input v-model="text" autogrow placeholder="bio"/>
+        <q-input v-model="bio" autogrow placeholder="bio"/>
       </div>
     </div>
     <div class="column full-width q-px-md items-start">
@@ -36,15 +36,15 @@
       <div class="full-width">
         <div class="container-input row justify-center items-center">
           <span>Email</span>
-          <q-input v-model="text" placeholder="e-mail"/>
+          <q-input v-model="email" placeholder="e-mail"/>
         </div>
         <div class="container-input row justify-center items-center">
           <span>Phone</span>
-          <q-input v-model="text" placeholder="phone"/>
+          <q-input v-model="phone" placeholder="phone"/>
         </div>
         <div class="container-input row justify-center items-center">
           <span>Gender</span>
-          <q-input v-model="text" placeholder="gender"/>
+          <q-input v-model="gender" placeholder="gender"/>
         </div>
       </div>
     </div>
@@ -56,8 +56,29 @@ export default {
   name: 'ProfilePage',
   data() {
     return {
-      text: '',
+      name: '',
+      userName: '',
+      webSite: '',
+      bio: '',
+      email: '',
+      phone: '',
+      gender: '',
+      avatar: '',
     };
+  },
+  methods: {
+    loadProfileData() {
+      const userData = this.$store.getters['user/getUserData'];
+      this.name = userData.name;
+      this.userName = userData.user_name;
+      this.bio = userData.bio;
+      this.email = userData.email;
+      this.gender = userData.gender;
+      this.avatar = userData.avatar;
+    },
+  },
+  mounted() {
+    this.loadProfileData();
   },
 };
 </script>

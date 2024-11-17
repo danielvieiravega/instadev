@@ -10,7 +10,7 @@
   >
     <div class="container-items">
       <div class="q-pa-sm q-pt-xl">
-        <span>s.khasanov_</span>
+        <span>{{ user.user_name }}</span>
         <div class="q-mt-lg">
           <q-img
             width="24px"
@@ -77,6 +77,7 @@ export default {
   data() {
     return {
       open: false,
+      user: {},
     };
   },
   watch: {
@@ -84,9 +85,15 @@ export default {
       this.open = this.drawerRight;
     },
   },
+  mounted() {
+    this.loadProfileData();
+  },
   methods: {
     hide() {
       this.$emit('close');
+    },
+    async loadProfileData() {
+      this.user = this.$store.getters['user/getUserData'];
     },
   },
 };
