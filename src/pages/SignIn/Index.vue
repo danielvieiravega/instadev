@@ -65,7 +65,10 @@ export default {
       if (response) {
         await this.$router.push({ path: 'main' });
       } else {
-        console.log('deu ruim');
+        this.$q.notify({
+          color: 'negative',
+          message: 'Login failed, check your credentials',
+        });
       }
     },
   },
