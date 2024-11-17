@@ -16,12 +16,12 @@
       />
       <div class="full-width row items-center justify-center">
         <q-icon name="fas fa-lock" color="black" size="11px" class="q-mr-xs"/>
-        <strong>jacob_w</strong>
+        <strong>{{ user.user_name }}</strong>
         <q-icon name="fas fa-chevron-down" color="black" size="11px" class="q-ml-xs"/>
       </div>
       <div class="row items-center justify-between full-width q-mt-lg">
         <q-avatar class="avatar-profile" size="96px">
-          <img src="https://cdn.quasar.dev/img/avatar.png">
+          <img class="avatar" :src="user.avatar || 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1114445501.jpg' ">
         </q-avatar>
         <div class="column items-center">
           <strong>54</strong>
@@ -37,13 +37,13 @@
         </div>
       </div>
       <div class="column q-mt-md">
-        <strong>Jacob West</strong>
-        <span>
-        Digital goodies designer @pixsellz
-      </span>
-        <span>
-        Everything is designed.
-      </span>
+        <strong>{{ user.name }}</strong>
+        <span v-if="user.bio">
+        {{ user.bio }}
+        </span>
+        <span v-else>
+          Adicione uma descrição a sua bio.
+        </span>
       </div>
       <q-btn
         class="btn-edit full-width q-my-md"
@@ -68,7 +68,7 @@
         </div>
       </div>
     </div>
-    <q-separator />
+    <q-separator/>
     <div
       class="full-width"
       :class="drawerRight && 'drawer-open'"
@@ -118,7 +118,17 @@ export default {
     return {
       tab: 'grid',
       drawerRight: false,
+      user: {},
     };
+  },
+  async mounted() {
+    await this.loadProfileData();
+  },
+  methods: {
+    async loadProfileData() {
+      const token = this.$store.getters['auth/getJWT'];
+      this.user = await this.$store.dispatch('user/getUserProfile', { token });
+    },
   },
 };
 </script>

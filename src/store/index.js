@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import auth from './auth';
 import posts from './posts';
+import user from './user';
 
 Vue.use(Vuex);
 
@@ -10,6 +11,7 @@ export default function (/* { ssrContext } */) {
     modules: {
       auth,
       posts,
+      user,
     },
 
     // enable strict mode (adds overhead!)
