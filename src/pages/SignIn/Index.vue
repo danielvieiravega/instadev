@@ -53,6 +53,9 @@ export default {
       password: '',
     };
   },
+  mounted() {
+    console.log(process.env.API_URL);
+  },
 };
 </script>
 

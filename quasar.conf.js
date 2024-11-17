@@ -11,7 +11,7 @@
 /* eslint global-require: 0 */
 const ESLintPlugin = require('eslint-webpack-plugin');
 
-module.exports = function (/* ctx */) {
+module.exports = function (ctx) {
   return {
     // https://v1.quasar.dev/quasar-cli/supporting-ts
     supportTS: false,
@@ -71,6 +71,11 @@ module.exports = function (/* ctx */) {
       chainWebpack(chain) {
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }]);
+      },
+      env: {
+        API_URL: ctx.dev
+          ? 'http://localhost:3000'
+          : 'https://prod-fake.com',
       },
     },
 
