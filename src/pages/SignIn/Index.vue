@@ -63,8 +63,12 @@ export default {
         password: this.password,
       });
       if (response) {
+        await this.loadProfileData(response.token);
         await this.$router.push({ path: 'main' });
       }
+    },
+    async loadProfileData(token) {
+      this.user = await this.$store.dispatch('user/getUserProfile', { token });
     },
   },
 };

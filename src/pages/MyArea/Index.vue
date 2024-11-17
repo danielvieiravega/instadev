@@ -24,7 +24,7 @@
           <img class="avatar" :src="user.avatar || 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1114445501.jpg' ">
         </q-avatar>
         <div class="column items-center">
-          <strong>54</strong>
+          <strong>{{posts.length}}</strong>
           <span>Posts</span>
         </div>
         <div class="column items-center">
@@ -87,9 +87,9 @@
       </q-tabs>
       <div class="row q-mb-xl">
         <q-img
-          v-for="item in 5" :key="item"
+          v-for="item in posts" :key="item.id"
           class="cursor-pointer col-4"
-          src="https://picsum.photos/500/300/"
+          :src="item.image"
           :ratio="1"
         />
       </div>
@@ -119,15 +119,21 @@ export default {
       tab: 'grid',
       drawerRight: false,
       user: {},
+      token: this.$store.getters['auth/getJWT'],
+      posts: [],
     };
   },
   async mounted() {
     await this.loadProfileData();
+    await this.loadMyPosts();
   },
   methods: {
-    async loadProfileData() {
-      const token = this.$store.getters['auth/getJWT'];
-      this.user = await this.$store.dispatch('user/getUserProfile', { token });
+    loadProfileData() {
+      this.user = this.$store.getters['user/getUserData'];
+    },
+    async loadMyPosts() {
+      const response = await this.$store.dispatch('posts/listMyPosts', { token: this.token });
+      this.posts = response.data;
     },
   },
 };
