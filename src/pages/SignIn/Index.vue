@@ -58,12 +58,10 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const response = await this.$axios.post('/auth', {
-        email: this.credential,
+      this.$store.dispatch('auth/makeLogin', {
+        credential: this.credential,
         password: this.password,
       });
-      await this.$router.push({ path: 'main' });
-      console.log(response);
     },
   },
 };
