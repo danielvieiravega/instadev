@@ -33,7 +33,6 @@
 import TopBar from 'components/TopBar/Index.vue';
 import BottomBar from 'components/BottomBar/Index.vue';
 import Posts from 'components/Posts/Index.vue';
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'MainPage',
@@ -41,12 +40,6 @@ export default {
     BottomBar,
     TopBar,
     Posts,
-  },
-  computed: {
-    ...mapGetters('auth', ['getJWT']),
-  },
-  mounted() {
-    console.log(this.getJWT);
   },
 };
 </script>

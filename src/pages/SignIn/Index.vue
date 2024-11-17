@@ -58,10 +58,15 @@ export default {
   },
   methods: {
     async onSubmit() {
-      this.$store.dispatch('auth/makeLogin', {
+      const response = await this.$store.dispatch('auth/makeLogin', {
         credential: this.credential,
         password: this.password,
       });
+      if (response) {
+        await this.$router.push({ path: 'main' });
+      } else {
+        console.log('deu ruim');
+      }
     },
   },
 };

@@ -19,8 +19,8 @@ export async function makeLogin({ commit }, body) {
       password,
     });
     commit('setToken', data.token);
-    // await this.$router.push({ path: 'main' });
+    return data;
   } catch (e) {
-    console.log(e);
+    return false;
   }
 }
