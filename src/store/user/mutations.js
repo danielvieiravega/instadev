@@ -1,4 +1,5 @@
 export function setUserData(state, data) {
-  state.userData = data;
-  localStorage.setItem('user', JSON.stringify(data));
+  const stringifyData = JSON.stringify(data);
+  state.userData = stringifyData;
+  localStorage.setItem('user', stringifyData);
 }

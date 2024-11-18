@@ -22,3 +22,26 @@ export async function getUserProfile({ commit }, params) {
     return false;
   }
 }
+
+export async function updateUserProfile({ dispatch }, params) {
+  const { token, body } = params;
+  try {
+    const { data } = await vm.$axios.put('/user', body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    dispatch('getUserProfile', { token });
+
+    return data;
+  } catch {
+    vm.$q.notify({
+      color: 'negative',
+      message: 'Falha ao listar dados do usuário!',
+      position: 'top',
+      icon: 'warning',
+    });
+    return false;
+  }
+}
