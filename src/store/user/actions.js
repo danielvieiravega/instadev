@@ -34,11 +34,18 @@ export async function updateUserProfile({ dispatch }, params) {
 
     dispatch('getUserProfile', { token });
 
+    vm.$q.notify({
+      color: 'positive',
+      message: data.message,
+      position: 'top',
+      icon: 'check',
+    });
+
     return data;
   } catch {
     vm.$q.notify({
       color: 'negative',
-      message: 'Falha ao listar dados do usuário!',
+      message: 'Falha ao atualizar o usuário!',
       position: 'top',
       icon: 'warning',
     });
