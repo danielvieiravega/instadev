@@ -1,13 +1,13 @@
 <template>
   <div class="full-width q-pb-xl">
-    <div class="column full-width" v-for="item in items" :key="item.id">
+    <div class="column full-width" v-for="post in posts" :key="post.id">
       <div class="row justify-between items-center full-width">
         <div class="row items-center">
           <q-avatar size="28px" class="q-mx-md">
             <img src="https://cdn.quasar.dev/img/avatar.png">
           </q-avatar>
           <div class="column">
-            <strong>{{ item.user.user_name }}</strong>
+            <strong>{{ post.user.user_name }}</strong>
             <span>Tokyo, Japan</span>
           </div>
         </div>
@@ -20,9 +20,9 @@
       </div>
       <q-img
         class="q-mt-sm cursor-pointer"
-        :src="item.image"
+        :src="post.image"
         :ratio="1"
-        @click="countClicks++"
+        @click="addLikeInPost(post.id)"
       >
         <q-icon
           v-if="animationClass !== ''"
@@ -41,15 +41,15 @@
         <q-icon class="q-mr-xl" name="fas fa-ellipsis-h" size="20px" color="dark-items"></q-icon>
         <q-img width="20px" src="../../assets/save-post.svg"></q-img>
       </div>
-      <div class="row items-center q-mb-sm" v-if="item.number_likes">
+      <div class="row items-center q-mb-sm" v-if="post.number_likes">
         <q-avatar size="17px" class="q-ml-sm q-mr-xs">
           <img src="https://cdn.quasar.dev/img/avatar.png">
         </q-avatar>
-        Liked by <strong> {{ item.user.user_name }} </strong> and
-        <strong>{{ item.number_likes }} others</strong>
+        Liked by <strong> {{ post.user.user_name }} </strong> and
+        <strong>{{ post.number_likes }} others</strong>
       </div>
       <div class="q-mx-sm q-mb-xl">
-        <strong>{{ item.user.user_name }}</strong> {{ item.description }}
+        <strong>{{ post.user.user_name }}</strong> {{ post.description }}
       </div>
     </div>
   </div>
@@ -63,27 +63,46 @@ export default {
     return {
       animationClass: '',
       countClicks: 0,
+      token: this.$store.getters['auth/getJWT'],
+      postId: 0,
+      posts: this.items,
     };
   },
   watch: {
-    countClicks() {
+    items() {
+      this.posts = this.items;
+    },
+    async countClicks() {
       setTimeout(() => {
         if (this.countClicks !== 2) {
           this.countClicks = 0;
         }
       }, 1000);
       if (this.countClicks === 2) {
-        this.addLikeInPost();
+        this.animationClass = 'animate-like';
+        setTimeout(() => {
+          this.animationClass = '';
+        }, 600);
+        await this.$store.dispatch('posts/addLikeInPost', {
+          token: this.token,
+          postId: this.postId,
+        });
+        this.incrementPostLike();
         this.countClicks = 0;
       }
     },
   },
   methods: {
-    addLikeInPost() {
-      this.animationClass = 'animate-like';
-      setTimeout(() => {
-        this.animationClass = '';
-      }, 600);
+    async addLikeInPost(postId) {
+      this.countClicks += 1;
+      this.postId = postId;
+    },
+    incrementPostLike() {
+      const localAllPosts = [...this.items];
+      const findPost = localAllPosts.find((post) => post.id === this.postId);
+      findPost.number_likes += 1;
+      this.posts = localAllPosts;
+      this.postId = 0;
     },
   },
 };
