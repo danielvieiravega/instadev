@@ -64,3 +64,26 @@ export async function addLikeInPost(_, params) {
     return false;
   }
 }
+
+export async function deletePost(_, params) {
+  const {
+    token,
+    postId,
+  } = params;
+  try {
+    await vm.$axios.delete(`/posts/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return true;
+  } catch (e) {
+    vm.$q.notify({
+      color: 'negative',
+      message: 'Falha ao deletar o post!',
+      position: 'top',
+      icon: 'warning',
+    });
+    return false;
+  }
+}

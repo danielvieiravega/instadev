@@ -17,10 +17,14 @@
           size="15px"
           color="dark-items">
           <q-menu
-          anchor="top right"
-          self="top left">
+            anchor="top right"
+            self="top left">
             <q-list style="min-width: 100px">
-              <q-item clickable v-close-popup v-if="post.user.id === userData.id">
+              <q-item
+                clickable
+                @click="deletePost(post.id)"
+                v-close-popup
+                v-if="post.user.id === userData.id">
                 <q-item-section>Excluir post</q-item-section>
               </q-item>
               <q-item clickable v-close-popup v-else>
@@ -68,6 +72,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Post',
   props: ['items'],
@@ -120,6 +125,16 @@ export default {
       findPost.number_likes += 1;
       this.posts = localAllPosts;
       this.postId = 0;
+    },
+    async deletePost(postId) {
+      await this.$store.dispatch('posts/deletePost', {
+        token: this.token,
+        postId,
+      });
+      const localAllPosts = [...this.items];
+      const postIndex = localAllPosts.findIndex((post) => post.id === postId);
+      localAllPosts.splice(postIndex, 1);
+      this.posts = localAllPosts;
     },
   },
 };
