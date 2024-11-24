@@ -12,10 +12,22 @@
           </div>
         </div>
         <q-icon
-          class="q-mr-md"
+          class="q-mr-md cursor-pointer"
           name="fas fa-ellipsis-h"
           size="15px"
           color="dark-items">
+          <q-menu
+          anchor="top right"
+          self="top left">
+            <q-list style="min-width: 100px">
+              <q-item clickable v-close-popup v-if="post.user.id === userData.id">
+                <q-item-section>Excluir post</q-item-section>
+              </q-item>
+              <q-item clickable v-close-popup v-else>
+                <q-item-section>Deixar de seguir</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
         </q-icon>
       </div>
       <q-img
@@ -67,6 +79,11 @@ export default {
       postId: 0,
       posts: this.items,
     };
+  },
+  computed: {
+    userData() {
+      return this.$store.getters['user/getUserData'];
+    },
   },
   watch: {
     items() {
