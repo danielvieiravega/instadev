@@ -35,7 +35,7 @@
                 <span class="text-black-opacity">
                     Don't have an account?
                 </span>
-        <a class="link q-ml-xs" href="">Sign up</a>
+        <a class="link q-ml-xs" href="#" @click="signUp">Sign up</a>
       </div>
     </div>
     <div class="full-width column items-center absolute-bottom">
@@ -69,6 +69,9 @@ export default {
     },
     async loadProfileData(token) {
       this.user = await this.$store.dispatch('user/getUserProfile', { token });
+    },
+    signUp() {
+      this.$router.push({ path: 'sign-up' });
     },
   },
 };

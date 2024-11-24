@@ -18,7 +18,7 @@ export default function ({ store }) {
 
   Router.beforeEach((to, from, next) => {
     const { token } = store.state.auth;
-    if (to.name !== 'login' && !token) {
+    if (!['login', 'register'].includes(to.name) && !token) {
       return next({ name: 'login' });
     }
 

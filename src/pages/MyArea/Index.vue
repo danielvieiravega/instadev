@@ -25,7 +25,7 @@
                :src="user.avatar || 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1114445501.jpg' ">
         </q-avatar>
         <div class="column items-center">
-          <strong>{{ posts.length }}</strong>
+          <strong>{{ (posts && posts.length) || 0  }}</strong>
           <span>Posts</span>
         </div>
         <div class="column items-center">
@@ -54,6 +54,16 @@
         text-color="black"
         label="Edit profile"
         @click="goTo('profile')"
+      >
+      </q-btn>
+      <q-btn
+        class="btn-edit full-width q-mb-lg"
+        flat
+        dense
+        color="white"
+        text-color="black"
+        label="Delete User"
+        @click="deleteUser()"
       >
       </q-btn>
       <div class="row">
@@ -140,6 +150,29 @@ export default {
     },
     goTo(route) {
       this.$router.push({ path: route });
+    },
+    deleteUser() {
+      this.$q.dialog({
+        title: 'Excluir conta de usuário',
+        message: 'Essa é uma ação irreversível. Deseja realmente excluir sua conta?',
+        cancel: true,
+      })
+        .onOk(async () => {
+          await this.$store.dispatch('user/deleteUserProfile', { token: this.token });
+          await this.$router.push({ path: 'sign-in' });
+          this.$q.notify({
+            color: 'positive',
+            position: 'top',
+            message: 'Usuário excluído',
+          });
+        })
+        .onCancel(() => {
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Usuário não foi excluído',
+          });
+        });
     },
   },
 };

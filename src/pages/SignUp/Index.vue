@@ -39,7 +39,7 @@
                 <span class="text-black-opacity">
                     Already have an account?
                 </span>
-        <a class="link q-ml-xs" href="">Sign in</a>
+        <a class="link q-ml-xs" @click="goToLogin" href="#">Sign in</a>
       </div>
     </div>
     <div class="full-width column items-center absolute-bottom">
@@ -61,6 +61,11 @@ export default {
       password: '',
       confirmPassword: '',
     };
+  },
+  methods: {
+    goToLogin() {
+      this.$router.push({ path: 'sign-in' });
+    },
   },
 };
 </script>

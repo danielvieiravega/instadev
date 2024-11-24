@@ -6,7 +6,7 @@ const routes = [
       {
         path: 'sign-in', name: 'login', component: () => import('pages/SignIn/Index.vue'), alias: '',
       },
-      { path: 'sign-up', component: () => import('pages/SignUp/Index.vue') },
+      { path: 'sign-up', name: 'register', component: () => import('pages/SignUp/Index.vue') },
       { path: 'my-area', component: () => import('pages/MyArea/Index.vue') },
       {
         path: 'main', name: 'main', component: () => import('pages/Main/Index.vue'),

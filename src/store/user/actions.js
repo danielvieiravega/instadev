@@ -52,3 +52,25 @@ export async function updateUserProfile({ dispatch }, params) {
     return false;
   }
 }
+
+export async function deleteUserProfile(_, params) {
+  const { token } = params;
+  try {
+    await vm.$axios.delete('/user', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    return true;
+  } catch {
+    vm.$q.notify({
+      color: 'negative',
+      message: 'Falha ao deletar usuario!',
+      position: 'top',
+      icon: 'warning',
+    });
+    return false;
+  }
+}
