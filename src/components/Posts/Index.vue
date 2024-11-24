@@ -126,15 +126,35 @@ export default {
       this.posts = localAllPosts;
       this.postId = 0;
     },
-    async deletePost(postId) {
-      await this.$store.dispatch('posts/deletePost', {
-        token: this.token,
-        postId,
-      });
-      const localAllPosts = [...this.items];
-      const postIndex = localAllPosts.findIndex((post) => post.id === postId);
-      localAllPosts.splice(postIndex, 1);
-      this.posts = localAllPosts;
+    deletePost(postId) {
+      this.$q.dialog({
+        title: 'Delete post',
+        message: 'Confirma a exclusão do post?',
+        cancel: true,
+        persistent: true,
+      })
+        .onOk(async () => {
+          await this.$store.dispatch('posts/deletePost', {
+            token: this.token,
+            postId,
+          });
+          const localAllPosts = [...this.items];
+          const postIndex = localAllPosts.findIndex((post) => post.id === postId);
+          localAllPosts.splice(postIndex, 1);
+          this.posts = localAllPosts;
+          this.$q.notify({
+            color: 'positive',
+            position: 'top',
+            message: 'Post excluído',
+          });
+        })
+        .onCancel(() => {
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Post não foi excluído',
+          });
+        });
     },
   },
 };
